@@ -18,5 +18,6 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: echo ${GITHUB_REF}
+      - run: ehco ${toJSON(github.event)}
       - run: npm config list
       - run: yarn config list
