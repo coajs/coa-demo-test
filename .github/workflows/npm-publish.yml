@@ -4,8 +4,9 @@
 name: NPM Publish
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - *
 
 jobs:
 
@@ -25,22 +26,16 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
 
-      - name: Get version
-        id: ver
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-
       - name: Build
         run: |
           git config --global user.email "spryti@163.com"
           git config --global user.name "AexBot"
-          npm version ${steps.ver.outputs.VERSION}
+          npm version ${{ github.ref }}
           npm run build
 
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AEX_NPM_TOKEN }}
         run: |
-          git config --global user.email "spryti@163.com"
-          git config --global user.name "AexBot"
           cd dist
           npm publish
