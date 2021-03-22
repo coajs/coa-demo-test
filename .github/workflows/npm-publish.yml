@@ -28,9 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          git config --global user.email "spryti@163.com"
-          git config --global user.name "AexBot"
-          npm version ${{ github.event.release.tag_name }}
+          npm --no-commit-hooks version ${{ github.event.release.tag_name }}
           npm run build
 
       - name: Publish
