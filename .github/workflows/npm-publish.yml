@@ -4,9 +4,9 @@
 name: NPM Publish
 
 on:
-  push:
-    tags:
-      - '**'
+  release:
+    types:
+      - created
 
 jobs:
 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Build
         run: |
-          npm version ${{ github.event.ref }}
+          npm version ${{ github.event.release.tag_name }}
           npm run build
 
       - name: Publish
