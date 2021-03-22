@@ -6,7 +6,7 @@ name: NPM Publish
 on:
   push:
     tags:
-      - *
+      - '**'
 
 jobs:
 
